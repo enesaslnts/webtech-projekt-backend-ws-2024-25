@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // Erlaube CORS für alle Routen, Ursprünge, Header und Methoden
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:8080") // Erlaubt Anfragen von deinem Frontend
+                .allowedOrigins("http://localhost:8081") // Erlaubt Anfragen von deinem Frontend
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Erlaubt diese HTTP-Methoden
                 .allowedHeaders("*"); // Erlaubt alle Header
     }
