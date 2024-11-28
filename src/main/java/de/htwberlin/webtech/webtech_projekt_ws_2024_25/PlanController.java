@@ -28,13 +28,14 @@ public class PlanController {
         throw new IllegalArgumentException("Plan must have days.");
     }
 
-    newPlan.setId((long) (plans.size() + 1));
+    newPlan.setId(plans.stream().mapToLong(Plan::getId).max().orElse(0) + 1);
     long dayId = 1;
     for (WorkoutDay day : newPlan.getDays()) {
         day.setId(dayId++);
         System.out.println("Day: " + day.getDay() + ", RestDay: " + day.isRestDay());
     }
     plans.add(newPlan);
+    System.out.println("Neuer Plan hinzugefügt: " + newPlan.getName());
     return newPlan;
 }
 
