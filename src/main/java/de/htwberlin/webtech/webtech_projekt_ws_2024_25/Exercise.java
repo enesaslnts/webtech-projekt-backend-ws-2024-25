@@ -1,17 +1,20 @@
 package de.htwberlin.webtech.webtech_projekt_ws_2024_25;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor; // Lombok-Annotation für Konstruktor mit allen Feldern.
+import lombok.Getter; // Lombok-Annotation für Getter-Methoden.
+import lombok.NoArgsConstructor; // Lombok-Annotation für leeren Konstruktor.
+import lombok.Setter; // Lombok-Annotation für Setter-Methoden.
+//import jakarta.persistence.*; // Importiert JPA-Annotationen.
 
-// Diese Klasse repräsentiert eine Übung, z.B. Bankdrücken
 @Getter
-@Setter 
-@AllArgsConstructor 
-public class Exercise {
-    private String exercise;  // Name der Übung
-    private int sets;  // Anzahl der Sätze
-    private int reps;  // Anzahl der Wiederholungen
-    private String time;  // Optional: Zeitangabe (z.B. für Übungen wie Plank)
-}
+@Setter
+// @AllArgsConstructor
+// @NoArgsConstructor
+// @Entity // Markiert die Klasse als JPA-Entität für die Datenbank.
 
+public class Exercise {
+
+   private String exercise; // Name der Übung
+   private int sets; // Anzahl der Sätze
+   private int reps; // Anzahl der Wiederholungen
+}
