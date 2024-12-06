@@ -12,37 +12,33 @@ import java.util.ArrayList;
 @RequestMapping("/api/plans") // Allgemeiner URL-Pfad für alle Endpunkte dieser Klasse.
 public class PlanController {
 
-    private final List<Plan> plans = new ArrayList<>();
+    private final PlanRepository planRepository;
+
+    @Autowired
+    public PlanController(PlanRepository planRepository) {
+        this.planRepository = planRepository;
+    }
 
     @GetMapping
     public List<Plan> getAllPlans() {
-        return plans;
+        return planRepository.findAll(); // Alle Pläne aus der Datenbank abrufen
     }
 
     @PostMapping
     public Plan addPlan(@RequestBody Plan newPlan) {
-    if (newPlan.getName() == null || newPlan.getName().isEmpty()) {
-        throw new IllegalArgumentException("Plan name is required.");
-    }
-    if (newPlan.getDays() == null) {
-        throw new IllegalArgumentException("Plan must have days.");
-    }
+        if (newPlan.getName() == null || newPlan.getName().isEmpty()) {
+            throw new IllegalArgumentException("Planname darf nicht leer sein.");
+        }
+        if (newPlan.getDays() == null || newPlan.getDays().isEmpty()) {
+            throw new IllegalArgumentException("Ein Plan muss mindestens einen Tag enthalten.");
+        }
 
-    newPlan.setId(plans.stream().mapToLong(Plan::getId).max().orElse(0) + 1);
-    long dayId = 1;
-    for (WorkoutDay day : newPlan.getDays()) {
-        day.setId(dayId++);
-        System.out.println("Day: " + day.getDay() + ", RestDay: " + day.isRestDay());
+        return planRepository.save(newPlan); // Speichern in der Datenbank
     }
-    plans.add(newPlan);
-    System.out.println("Neuer Plan hinzugefügt: " + newPlan.getName());
-    return newPlan;
-}
-
-
 
     @DeleteMapping("/{id}")
     public void deletePlan(@PathVariable Long id) {
-        plans.removeIf(plan -> plan.getId().equals(id));
+        planRepository.deleteById(id); // Löschen nach ID
     }
+
 }
