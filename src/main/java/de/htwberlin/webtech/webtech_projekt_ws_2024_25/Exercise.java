@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor; // Lombok-Annotation für Konstruktor mit alle
 import lombok.Getter; // Lombok-Annotation für Getter-Methoden.
 import lombok.NoArgsConstructor; // Lombok-Annotation für leeren Konstruktor.
 import lombok.Setter; // Lombok-Annotation für Setter-Methoden.
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*; // Importiert JPA-Annotationen.
 
 @Getter
@@ -14,11 +17,19 @@ import jakarta.persistence.*; // Importiert JPA-Annotationen.
 
 public class Exercise {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY) // Automatische ID-Generierung
-   private Long id; // ID der Übung
+   @Id // Markiert das Feld als Primärschlüssel
+   @GeneratedValue(strategy = GenerationType.IDENTITY) // Automatische Generierung der ID
+   private Long exerciseId; // ID der Übung
 
-   private String exercise; // Name der Übung
-   private int sets; // Anzahl der Sätze
-   private int reps; // Anzahl der Wiederholungen
+   private String exerciseName; // Name der Übung
+
+   private int exerciseSets; // Anzahl der Sätze
+
+   private int exerciseReps; // Anzahl der Wiederholungen
+
+   @ManyToOne
+   @JsonBackReference // Verhindert Endlosschleife
+   @JoinColumn(name = "workout_day_id") // Fremdschlüssel-Spalte für die Beziehung zu WorkoutDay
+
+   private WorkoutDay workoutDay; // Der Trainingstag, zu dem diese Übung gehört
 }
