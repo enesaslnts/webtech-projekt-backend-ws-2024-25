@@ -40,4 +40,7 @@ public class WorkoutDay {
     @JoinColumn(name = "plan_id") // Fremdschlüssel-Spalte für die Beziehung zu Plan
 
     private Plan plan; // Der Plan, zu dem dieser Trainingstag gehört
+
+    
+    
 }
