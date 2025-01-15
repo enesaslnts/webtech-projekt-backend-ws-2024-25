@@ -9,6 +9,11 @@ COPY . .
 
 # Installiere Abhängigkeiten und baue das Projekt
 RUN ./gradlew build -x test
+# for all env-variables that we will use in the future:
+ARG DB_PASSWORD
+ARG DB_URL
+ARG DB_USER
+RUN gradle build --no-daemon
 
 # Erstelle das fertige Image mit nur dem Java-Runtime und dem Build-Ergebnis
 FROM openjdk:21-jdk-slim
