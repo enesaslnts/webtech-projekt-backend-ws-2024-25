@@ -1,6 +1,7 @@
 package de.htwberlin.webtech.webtech_projekt_ws_2024_25;
 
 import lombok.AllArgsConstructor; // Lombok-Annotation für Konstruktor mit allen Feldern.
+import lombok.Builder;
 import lombok.Getter; // Lombok-Annotation für Getter-Methoden.
 import lombok.NoArgsConstructor; // Lombok-Annotation für leeren Konstruktor.
 import lombok.Setter; // Lombok-Annotation für Setter-Methoden.
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*; // Importiert JPA-Annotationen.
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,7 +34,6 @@ public class Exercise {
    @JoinColumn(name = "workout_day_id") // Fremdschlüssel-Spalte für die Beziehung zu WorkoutDay
 
    private WorkoutDay workoutDay; // Der Trainingstag, zu dem diese Übung gehört
-
-   
+    
   
 }
